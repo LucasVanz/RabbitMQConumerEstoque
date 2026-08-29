@@ -4,6 +4,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import com.example.DTO.EstoqueDTO;
+import com.example.Entity.Estoque;
 import com.example.constantes.RabbitMQConstantes;
 import com.example.service.EstoqueService;
 
@@ -17,7 +18,14 @@ public class EstoqueConsumer {
     
     @RabbitListener(queues = RabbitMQConstantes.FILA_ESTOQUE, containerFactory = "rabbitListenerContainerFactory")
     public void consumidor(EstoqueDTO estoqueDTO) throws InterruptedException, IllegalArgumentException {
+    //    estoqueService.salvarEstoque(estoqueDTO.nomeProduto, estoqueDTO.quantidade);
+    //    System.out.println("Mensagem consumida: " + estoqueDTO);
+        System.out.println("Processando quantidade: " + estoqueDTO.quantidade);
+        if (estoqueDTO.quantidade == 999){
+           throw new RuntimeException("Falha simulada no banco");     
+        }
+
+        
         estoqueService.salvarEstoque(estoqueDTO.nomeProduto, estoqueDTO.quantidade);
-        System.out.println("Mensagem consumida: " + estoqueDTO);
     }
 }
