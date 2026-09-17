@@ -74,13 +74,63 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+    		<groupId>io.confluent</groupId>
+    		<artifactId>kafka-avro-serializer</artifactId>
+    		<version>7.4.3</version>
+		</dependency>
 	</dependencies>
+	<repositories>
+    	<repository>
+        	<id>confluent</id>
+        	<url>https://packages.confluent.io/maven/</url>
+    	</repository>
+	</repositories>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>default-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<annotationProcessorPaths>
+								<path>
+                					<groupId>org.projectlombok</groupId>
+                					<artifactId>lombok</artifactId>
+                               </path>
+								<path>
+									<groupId>org.springframework.boot</groupId>
+									<artifactId>spring-boot-configuration-processor</artifactId>
+								</path>
+							</annotationProcessorPaths>
+							
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+    			<groupId>org.apache.avro</groupId>
+    			<artifactId>avro-maven-plugin</artifactId>
+    			<version>1.11.3</version>
+    			<executions>
+        			<execution>
+            		<phase>generate-sources</phase>
+            		<goals>
+                		<goal>schema</goal>
+            		</goals>
+        			</execution>
+    			</executions>
 			</plugin>
 		</plugins>
 	</build>

@@ -4,7 +4,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import com.example.DTO.EstoqueDTO;
-import com.example.Entity.Estoque;
 import com.example.constantes.RabbitMQConstantes;
 import com.example.service.EstoqueService;
 
